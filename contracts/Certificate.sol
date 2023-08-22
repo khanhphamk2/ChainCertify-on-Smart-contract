@@ -29,7 +29,35 @@ contract Certificate is Ownable {
         count++;
     }
 
-    function getCertifficate(address _cert) private returns (memory _CertificateData) {
-        return certificates[_cert];
+    function verifyCertificate(address _cert) public view returns (bool) {
+        if (bytes(certificates[_cert].name).length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getCount() public view returns (uint) {
+        return count;
+    }
+
+    function getCertificateData(
+        address _cert
+    )
+        public
+        view
+        returns (string memory, string memory, string memory, string memory)
+    {
+        return (
+            certificates[_cert].name,
+            certificates[_cert].course,
+            certificates[_cert].date,
+            certificates[_cert].signature
+        );
+    }
+
+    function revokeCerti(address _cert) public onlyOwner {
+        delete certificates[_cert];
+        count--;
     }
 }
