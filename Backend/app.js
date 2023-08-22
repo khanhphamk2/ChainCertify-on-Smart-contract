@@ -9,8 +9,7 @@ const start = function () {
     const app = express();
 
     if (config.env !== 'test') {
-        app.use(morgan.successHandler);
-        app.use(morgan.errorHandler);
+        // log only 4xx and 5xx responses to console
     }
 
     // set security HTTP headers

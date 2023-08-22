@@ -1,28 +1,59 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const near = require('near-api-js');
+const http = require('http');
+const { start, apiRoute } = require('./app');
+const config = require('./config/config');
 
-const app = express();
-const port = 3000;
+let server;
 
-// API endpoint to revoke a certificate
-app.post('/test-connect', async (req, res) => {
-    const { accountId } = req.body;
+async function startAgenda(io) {
+    agenda.io = io;
+    await agenda.start();
 
-    if (!accountId) {
-        return res.status(400).json({ success: false, message: 'Missing accountId.' });
+    /** For testing
+     *  every 5 minutes: cronTime.every(5).minutes()
+     *  every 5 seconds: cronTime.everyMinute()
+     *  every sunday at 00:00 : cronTime.everySundayAt(0, 0)
+     * */
+
+    await agenda.every('1 day', 'statisticsDaily');
+}
+
+
+try {
+    const app = start();
+    const httpServer = http.createServer(app);
+
+    apiRoute(app, io);
+    await startAgenda(io);
+
+    server = httpServer.listen(config.port, () => {
+        logger.info(`Listening to port ${config.port}`);
+    });
+} catch (error) {
+    logger.error(error.message);
+}
+
+const exitHandler = () => {
+    if (server) {
+        server.close(() => {
+            logger.info('Server closed');
+            process.exit(1);
+        });
+    } else {
+        process.exit(1);
     }
+};
 
-    try {
-        const account = await near.account(accountId);
-        return res.json({ success: true, message: 'Connected to Near Wallet successfully.' });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: 'Failed to connect to Near Wallet.' });
+const unexpectedErrorHandler = (error) => {
+    logger.error(error);
+    exitHandler();
+};
+
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on('SIGTERM', () => {
+    logger.info('SIGTERM received');
+    if (server) {
+        server.close();
     }
-});
-
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
 });
