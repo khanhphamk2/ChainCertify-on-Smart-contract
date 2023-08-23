@@ -1,29 +1,13 @@
 const http = require('http');
 const { start, apiRoute } = require('./app');
-const config = require('./config/config');
 
 let server;
-
-async function startAgenda(io) {
-    agenda.io = io;
-    await agenda.start();
-
-    /** For testing
-     *  every 5 minutes: cronTime.every(5).minutes()
-     *  every 5 seconds: cronTime.everyMinute()
-     *  every sunday at 00:00 : cronTime.everySundayAt(0, 0)
-     * */
-
-    await agenda.every('1 day', 'statisticsDaily');
-}
-
 
 try {
     const app = start();
     const httpServer = http.createServer(app);
 
     apiRoute(app, io);
-    await startAgenda(io);
 
     server = httpServer.listen(config.port, () => {
         logger.info(`Listening to port ${config.port}`);

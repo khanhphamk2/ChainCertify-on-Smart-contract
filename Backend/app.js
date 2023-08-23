@@ -8,9 +8,9 @@ const routes = require('./routes/v1');
 const start = function () {
     const app = express();
 
-    if (config.env !== 'test') {
-        // log only 4xx and 5xx responses to console
-    }
+    // if (config.env !== 'test') {
+
+    // }
 
     // set security HTTP headers
     app.use(helmet());
@@ -33,9 +33,9 @@ const start = function () {
     app.options('*', cors());
 
     // limit repeated failed requests to auth endpoints
-    if (config.env === 'production') {
-        app.use('/v1/auth', authLimiter);
-    }
+    // if (config.env === 'production') {
+    //     app.use('/v1/auth', authLimiter);
+    // }
 
     app.use((req, res, next) => {
         // For example, a GET request to `/test` will print "GET /test"
