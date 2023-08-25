@@ -1,13 +1,20 @@
+const mongoose = require('mongoose');
 
-class CertificateModel {
-    constructor(holder, issuer, data, sign, isRevoked) {
-        this.holder = holder;
-        this.issuer = issuer;
-        this.data = data;
-        this.sign = sign;
-        this.isRevoked = isRevoked;
+const certificateSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    description: String,
+    image: String,
+    price: Number,
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-    
-}
+});
 
-module.exports = CertificateModel;
+const Certificate = mongoose.model('Certificate', certificateSchema);
+
+module.exports = Certificate;

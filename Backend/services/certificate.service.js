@@ -9,3 +9,4 @@ async function issueCertificate(req, res, next) {
         next(error);
     }
 }
+

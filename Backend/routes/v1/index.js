@@ -1,4 +1,5 @@
 const express = require('express');
+const certificateRoute = require('./certificate.route');
 const walletRoute = require('./wallet.route');
 const issuerRoute = require('./issuer.route');
 const holderRoute = require('./holder.route');
@@ -8,21 +9,25 @@ const router = express.Router();
 
 const defaultRoutes = [
     {
-        path: '/wallet',
-        route: walletRoute,
+        path: '/certificates',
+        route: certificateRoute,
     },
-    {
-        path: '/issuer',
-        route: issuerRoute,
-    },
-    {
-        path: '/holder',
-        route: holderRoute,
-    },
-    {
-        path: '/user',
-        route: userRoute,
-    },
+    // {
+    //     path: '/wallet',
+    //     route: walletRoute,
+    // },
+    // {
+    //     path: '/issuer',
+    //     route: issuerRoute,
+    // },
+    // {
+    //     path: '/holder',
+    //     route: holderRoute,
+    // },
+    // {
+    //     path: '/user',
+    //     route: userRoute,
+    // },
 ];
 
 defaultRoutes.forEach((route) => {

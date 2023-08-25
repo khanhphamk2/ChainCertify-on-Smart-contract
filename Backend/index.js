@@ -1,20 +1,27 @@
 const http = require('http');
 const { start, apiRoute } = require('./app');
+const mongoose = require('mongoose');
+const config = require('./config/config');
+const logger = require('./config/logger');
 
 let server;
 
-try {
-    const app = start();
-    const httpServer = http.createServer(app);
+mongoose.connect(config.mongoose.url, config.mongoose.options).then(async () => {
+    try {
+        logger.info('Connected to MongoDB');
 
-    apiRoute(app, io);
+        const app = start();
+        const httpServer = http.createServer(app);
 
-    server = httpServer.listen(config.port, () => {
-        logger.info(`Listening to port ${config.port}`);
-    });
-} catch (error) {
-    logger.error(error.message);
-}
+        apiRoute(app);
+
+        server = httpServer.listen(config.port, () => {
+            logger.info(`Listening to port ${config.port}`);
+        });
+    } catch (error) {
+        logger.error(error.message);
+    }
+});
 
 const exitHandler = () => {
     if (server) {
