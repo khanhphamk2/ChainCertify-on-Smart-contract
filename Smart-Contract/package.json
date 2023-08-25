@@ -2,7 +2,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.3"
   },
-  "name": "ChainCertify",
+  "name": "chaincertify",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "version": "1.0.0",
   "main": "truffle-config.js",
