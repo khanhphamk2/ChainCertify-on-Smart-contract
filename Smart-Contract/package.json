@@ -1,9 +1,8 @@
 {
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3",
-    "bos-cli": "^0.3.2"
+    "@openzeppelin/contracts": "^4.9.3"
   },
-  "name": "rsa accurevoke",
+  "name": "ChainCertify",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "version": "1.0.0",
   "main": "truffle-config.js",
