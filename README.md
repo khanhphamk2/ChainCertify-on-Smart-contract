@@ -2,7 +2,7 @@
 
 ChainCertify: RSA-Accumulator Cert Management.
 
-![ChainCertify](./Pictures/Cover_image.png)
+![ChainCertify](./Pictures/cover_image_new.png)
 
 ## 2. Product Description
 
