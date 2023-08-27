@@ -126,49 +126,49 @@ ChainCertify system consists of two main actors: Issuer and Holder:
 
 The "Certificate Issuance Process" diagram illustrates the interaction between the main components within the system to process and issue certificates. The process begins when the Issuer initiates the creation of a new certificate and concludes when the system confirms the certificate status and sends a notification to the Issuer.
 
-Issuer: The process starts with the Issuer submitting a request to create a new certificate.
+- Issuer: The process starts with the Issuer submitting a request to create a new certificate.
 
-Client: Upon receiving the request, the Client forwards it to the Smart Contract.
+- Client: Upon receiving the request, the Client forwards it to the Smart Contract.
 
-Smart Contract: Upon receiving the request, the Smart Contract generates a new certificate, adds it to the RSA Accumulator, and sends the data to IPFS for storage.
+- Smart Contract: Upon receiving the request, the Smart Contract generates a new certificate, adds it to the RSA Accumulator, and sends the data to IPFS for storage.
 
-IPFS: IPFS uploads the certificate data and RSA Accumulator information and returns the result to the Smart Contract.
+- IPFS: IPFS uploads the certificate data and RSA Accumulator information and returns the result to the Smart Contract.
 
-Smart Contract: After receiving the result from IPFS, the Smart Contract sends the data to the blockchain.
+- Smart Contract: After receiving the result from IPFS, the Smart Contract sends the data to the blockchain.
 
-Blockchain: The blockchain stores transaction information, the certificate (in hash form), and the RSA Accumulator data. It then returns the result to the Smart Contract.
+- Blockchain: The blockchain stores transaction information, the certificate (in hash form), and the RSA Accumulator data. It then returns the result to the Smart Contract.
 
-Smart Contract: The Smart Contract sends the issuance result to the Client.
+- Smart Contract: The Smart Contract sends the issuance result to the Client.
 
-Client: The Client displays a notification to the Issuer.
+- Client: The Client displays a notification to the Issuer.
 
 ![Certificate Revocation Diagram](./Pictures/ChainCertify_SequenceDiagram_2.png)
 
 The "Certificate Revocation Process" diagram illustrates the interaction between the main components within the system to process and revoke certificates. The process begins when the Issuer initiates the revocation of a certificate and concludes when the system confirms the revocation status and sends a notification to the Issuer.
 
-Issuer: The process starts with the Issuer submitting a request to revoke a certificate.
+- Issuer: The process starts with the Issuer submitting a request to revoke a certificate.
 
-Client: Upon receiving the request, the Client forwards it to the Smart Contract.
+- Client: Upon receiving the request, the Client forwards it to the Smart Contract.
 
-Smart Contract: Upon receiving the request, the Smart Contract verifies the certificate, and if successful, performs the deaccumulation in the RSA Accumulator.
+- Smart Contract: Upon receiving the request, the Smart Contract verifies the certificate, and if successful, performs the deaccumulation in the RSA Accumulator.
 
-If verification or revocation is unsuccessful:
+- If verification or revocation is unsuccessful:
 
-Smart Contract sends the result to the Client.
+  - Smart Contract sends the result to the Client.
 
-If verification and revocation are successful:
+- If verification and revocation are successful:
 
-Smart Contract sends the RSA Accumulator data to IPFS.
+  - Smart Contract sends the RSA Accumulator data to IPFS.
 
-IPFS uploads the RSA Accumulator data and returns the result to the Smart Contract.
+  - IPFS uploads the RSA Accumulator data and returns the result to the Smart Contract.
 
-Smart Contract sends the data to the blockchain.
+  - Smart Contract sends the data to the blockchain.
 
-Blockchain stores transaction information and RSA Accumulator data, then returns the result to the Smart Contract.
+  - Blockchain stores transaction information and RSA Accumulator data, then returns the result to the Smart Contract.
 
-Smart Contract sends the result to the Client.
+  - Smart Contract sends the result to the Client.
 
-Client: The Client displays a notification to the Issuer.
+  - Client: The Client displays a notification to the Issuer.
 
 This sequence diagram captures the steps involved in revoking a certificate, including the interactions between the Issuer, the Smart Contract, IPFS, and the blockchain. The goal is to ensure a secure and reliable process for certificate revocation.
 
